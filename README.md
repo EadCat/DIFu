@@ -2,4 +2,4 @@ A Project Page Hosting DIFu: Depth-guided Implicit Function for Clothed Human Re
 
 please go to: https://eadcat.github.io/DIFu/
 
-Note: The page hasn't been completed yet.
+Note: Initial upload: 2023-06-12
