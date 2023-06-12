@@ -33,15 +33,15 @@
 
             <div class="row justify-content-center">
               <div class="column">
-                  <p class="mb-5"><a class="btn btn-large btn-light" href="" role="button"  target="_blank">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://openaccess.thecvf.com/content/CVPR2023/papers/Song_DIFu_Depth-Guided_Implicit_Function_for_Clothed_Human_Reconstruction_CVPR_2023_paper.pdf" role="button"  target="_blank">
                     <i class="fa fa-file"></i> Paper</a> </p>
               </div>
               <div class="column">
-                <p class="mb-5"><a class="btn btn-large btn-light" href="" role="button"  target="_blank">
+                <p class="mb-5"><a class="btn btn-large btn-light" href="https://openaccess.thecvf.com/content/CVPR2023/supplemental/Song_DIFu_Depth-Guided_Implicit_CVPR_2023_supplemental.pdf" role="button"  target="_blank">
                   <i class="fa fa-file"></i> Supplementary</a> </p>
               </div>
               <div class="column">
-                <p class="mb-5"><a class="btn btn-large btn-light" href="" role="button">
+                <p class="mb-5"><a class="btn btn-large btn-light" href="https://youtu.be/uNMnCeBVWak" role="button">
                   <i class="fa fa-youtube-play" aria-hidden="true"></i> Video</a> </p>
               </div>
             </div>
@@ -59,14 +59,21 @@
       <div class="row">
         <div class="col-12 text-center">
           <h3>Abstract</h3>
-            <hr style="margin-top:0px">
+            <hr style="margin-top:10px">
+            
             <h6 style="color:#8899a5"> Reconstruct human mesh from a monocular image. </h6>
-            <video width="70%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-              <source src="video/teaser.mp4" type="video/mp4">
-          </video>
+            <hr style="margin-top:0px">
+            <div style = "padding: 0px 0px 0px 100px;">
+              <img style="float:left" src="assets/Thumbnail.png", height="300p" width="50%" alt="The image cannot be displayed!">
+            </div>
+            <video  height="300p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/projection.mp4" type="video/mp4">
+            </video>
+            <!-- <hr style="margin-bottom:0px"> -->
           <!-- <br><br> -->
           <!-- Abstract below -->
-          <p class="text-abstract">Recently, implicit function (IF)-based methods for clothed human reconstruction using a single image have received a lot of attention. Most existing methods rely on a 3D embedding branch using volume such as the skinned multi-person linear (SMPL) model, to compensate for the lack of information in a single image. Beyond the SMPL, which provides skinned parametric human 3D information, in this paper, we propose a new IF-based method, DIFu, that utilizes a projected depth prior containing textured and non-parametric human 3D information. In particular, DIFu consists of a generator, an occupancy prediction network, and a texture prediction network. The generator takes an RGB image of the human front-side as input, and hallucinates the human back-side image. After that, depth maps for front/back images are estimated and projected into 3D volume space. Finally, the occupancy prediction network extracts a pixel-aligned feature and a voxel-aligned feature through a 2D encoder and a 3D encoder, respectively, and estimates occupancy using these features. Note that voxel-aligned features are obtained from the projected depth maps, thus it can contain detailed 3D information such as hair and cloths. Also, colors of each query point are also estimated with the texture inference branch. The effectiveness of DIFu is demonstrated by comparing to recent IF-based models quantitatively and qualitatively. </p>
+          <br><br>
+          <p class="text-justify">Recently, implicit function (IF)-based methods for clothed human reconstruction using a single image have received a lot of attention. Most existing methods rely on a 3D embedding branch using volume such as the skinned multi-person linear (SMPL) model, to compensate for the lack of information in a single image. Beyond the SMPL, which provides skinned parametric human 3D information, in this paper, we propose a new IF-based method, DIFu, that utilizes a projected depth prior containing textured and non-parametric human 3D information. In particular, DIFu consists of a generator, an occupancy prediction network, and a texture prediction network. The generator takes an RGB image of the human front-side as input, and hallucinates the human back-side image. After that, depth maps for front/back images are estimated and projected into 3D volume space. Finally, the occupancy prediction network extracts a pixel-aligned feature and a voxel-aligned feature through a 2D encoder and a 3D encoder, respectively, and estimates occupancy using these features. Note that voxel-aligned features are obtained from the projected depth maps, thus it can contain detailed 3D information such as hair and cloths. Also, colors of each query point are also estimated with the texture inference branch. The effectiveness of DIFu is demonstrated by comparing to recent IF-based models quantitatively and qualitatively. </p>
         </div>
       </div>
     </div>
@@ -80,21 +87,67 @@
         <div class="col-12 text-center">
             <h3>DIFu Pipeline</h3>
             <hr style="margin-top:0px">
-            <img src="image/Pipeline.png", alt="The image cannot be displayed!", width=80%>
+            <img src="assets/Pipeline.png", alt="The image cannot be displayed!", width=80%>
+            <br><br><br>
+            <p class="text-left">
+              (1) Back-side image generation (<i>I<sup>B</sup></i>) with the hallucinator (mirrored-form, PIFuHD Setting). <br>
+              (2) Using front-/back-side images and the parametric mesh, the depth estimator infers front-/back-side depth maps (<i>D<sup>F</sup></i>, <i>D<sup>B</sup></i>). <br>
+              (3) <i>D<sup>F</sup></i> and <i>D<sup>B</sup></i> are projected into the volume <i>V</i>. <br>
+              (4) If required (texture estimation), <i>I<sup>F</sup></i> and <i>I<sup>B</sup></i> also can be projected. <br>
+              (5) <i>I<sup>F</sup></i>, <i>I<sup>B</sup></i>, <i>D<sup>F</sup></i>, <i>D<sup>B</sup></i>, and <i>V</i> are encoded. <br>
+              (6) 2D and 3D features are aligned and concatenated channel-wisely. <br>
+              (7) The MLPs estimates an occupancy vector. <br>
+              (8) the occupancy vector is converted into a mesh by the marching cubes algorithm.
+            </p>
         </div>
       </div>
     </div>
   </section>
   <br><br><br>
 
-  <!-- Dataset Configuration -->
+  <!-- Reconstruction Outputs -->
   <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h3>Dataset Configurations</h3>
+            <h3>Reconstruction Outputs</h3>
             <hr style="margin-top:0px">
-            <img src="image/Dataset.png", alt="The image cannot be displayed!", width=100%>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0063-090.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0068-000.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0070-090.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0073-000.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0074-090.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0089-000.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0105-090.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0146-000.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0223-180.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0229-270.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0236-180.mp4" type="video/mp4">
+            </video>
+            <video  height="256p" width="%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+              <source src="assets/meshes/DIFu-0521-270.mp4" type="video/mp4">
+            </video>
         </div>
       </div>
     </div>
@@ -102,7 +155,7 @@
   <br><br>
 
   <!-- Ablations -->
-  <section>
+  <!-- <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
@@ -120,7 +173,54 @@
       </div>
     </div>
   </section>
-  <br>
+  <br> -->
+
+    <!-- Ablations -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <hr style="margin-top:0px">
+              <h3>Discussions</h3>
+              <p class="text-abstract">
+                <i>More disscussions can be updated if needed.</i>
+                <hr style="margin-top:0px">
+                
+              </p>
+              <p class="text-left">
+                <h5>Design Motive</h5>
+                  <p class="text-justify">
+                    Although we inspired by PaMIR, which demonstrates powerful performance with simple implementation, we determined that the existing implicit function-based digital human reconstruction methods struggle to benefit from spatial assumptions within the occupancy vector estimation mechanism.
+                    We focused on addressing the issue of oversmoothing, particulary in relation to overreliance on patterns for the unseen regions, as the loss function compares 1D tensor using MSE.
+                    By placing modules with the inductive bias of convolutional operation at the forefront of the pipeline, we devised a method that allows the implicit function to convert the explicit 3D shaped input into a mesh output without excessive reliance on human patterns.
+                    However, it does not simply serve as a converter.
+                    As the 3D prior can somewhat be incorrect, the implicit function can compensate for this by relying the patterns.
+                    To enhance this ability, we introduced augmentation offset during training.
+                  </p>
+                <br>
+                <hr style="margin-top:0px">
+                <h5>Training Generative Model</h5>
+                <img src="assets/Tab2.png", alt="The image cannot be displayed!", width=100%>
+                <br>
+                  <p class="text-justify">
+                    Due to the limited availability of the dataset, we performed reimplementation and retraining of the comparative algorithms under the same conditions.
+                    The dataset we used had limited statistics such as clothing, poses, and races, making it challenging to attempt web images that significantly deviated from the dataset distribution.
+                    
+                    DIFu is sensitive in the performance of its two frontal modules.
+                    Particularly in this situation where the dataset is scarce, the performance of the hallucinator can undergo dramatic changes depending on the training method.
+
+                    In the ablation study and table 2 of the main paper, we investigated the hallucinator.
+                    The model with the application of adversarial loss demonstrates robustness on unseen datasets compared to the model without it.
+                    However, on the contrary, when training the implicit function, the predicted back-side image can differ from the actual back view in the training dataset, which can undermine confidence in explicit guidance.
+                    Preventing mode collapse in GANs can ironically result in the implicit function losing confidence in the generated inputs, incurring to oversmoothing in the back-side.
+                  </p>
+              </p>
+              <hr style="margin-top:0px">
+          </div>
+        </div>
+      </div>
+    </section>
+    <br>
 
   <!-- Contact -->
   <section>
@@ -137,6 +237,36 @@
     </div>
   </section>
   <br><br>
+  
+  <!-- Acknowledgements -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-justify">
+            <h3>Acknowledgments</h3>
+            <hr style="margin-top:0px">
+            The source code repository of PIFu, PaMIR, and ICON were referenced for reimplementation of themselves and pre-processing of the dataset. 
+            Also, PIFuHD was referred for mesh rendering and evaluation. <br> <br>
+            <p class="text-center">
+            PIFu (ICCV 2019, Saito et al.): <a href="https://arxiv.org/pdf/1905.05172.pdf" target="_blank">Paper</a> | <a href="https://github.com/shunsukesaito/PIFu" target="_blank">Code</a> | <a href="https://www.youtube.com/watch?v=S1FpjwKqtPs" target="_blank">Video</a> <br>
+            PIFuHD (CVPR 2020, Saito et al.): <a href="https://arxiv.org/pdf/2004.00452.pdf" target="_blank">Paper</a> | <a href="https://github.com/facebookresearch/pifuhd" target="_blank">Code</a> | <a href="https://www.youtube.com/watch?v=uEDqCxvF5yc" target="_blank">Video</a> <br>
+            PaMIR (IEEE TPAMI 2021, Zheng et al.): <a href="https://arxiv.org/pdf/2007.03858.pdf" target="_blank">Paper</a> | <a href="https://github.com/ZhengZerong/PaMIR" target="_blank">Code</a> | <a href="http://www.liuyebin.com/pamir/pamir.html" target="_blank">Project Page</a> <br>
+            ICON (CVPR 2022, Xiu et al.): <a href="https://arxiv.org/pdf/2112.09127.pdf" target="_blank">Paper</a> | <a href="https://github.com/YuliangXiu/ICON" target="_blank">Code</a> | <a href="https://www.youtube.com/watch?v=hZd6AYin2DE" target="_blank">Video</a> <br>
+            </p>
+
+            The Dataset used <a href="https://github.com/ytrock/THuman2.0-Dataset" target="_blank">THuman2.0</a> and <a href="https://buff.is.tue.mpg.de/" target="_blank">BUFF</a>.
+            <br><br>
+            <p class="text-center">
+              THuman2.0 (CVPR 2021, Yu et al.): <a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Yu_Function4D_Real-Time_Human_Volumetric_Capture_From_Very_Sparse_Consumer_RGBD_CVPR_2021_paper.pdf" target="_blank">Paper</a> <br>
+              BUFF (CVPR 2017, Zhang et al.): <a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Zhang_Detailed_Accurate_Human_CVPR_2017_paper.pdf" target="_blank">Paper</a>
+            </p>
+            <br><br>
+            
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
 
   <!-- Citing -->
   <div class="container">
