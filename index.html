@@ -190,8 +190,8 @@
               <p class="text-left">
                 <h5>Design Motive</h5>
                   <p class="text-justify">
-                    Although we inspired by PaMIR, which demonstrates powerful performance with simple implementation, we determined that the existing implicit function-based digital human reconstruction methods struggle to benefit from spatial assumptions within the occupancy vector estimation mechanism.
-                    We focused on addressing the issue of oversmoothing, particulary in relation to overreliance on patterns for the unseen regions, as the loss function compares 1D tensor using MSE.
+                    Although we inspired by PaMIR, which demonstrates powerful performance with simple implementation, we determined that the existing implicit function-based digital human reconstruction methods are difficult to benefit from spatial assumptions within the occupancy vector estimation mechanism.
+                    We focused on addressing the issue of oversmoothing, particulary in relation to overreliance on patterns of human for the unseen regions, as the loss function compares 1D tensor using MSE.
                     By placing modules with the inductive bias of convolutional operation at the forefront of the pipeline, we devised a method that allows the implicit function to convert the explicit 3D shaped input into a mesh output without excessive reliance on human patterns.
                     However, it does not simply serve as a converter.
                     As the 3D prior can somewhat be incorrect, the implicit function can compensate for this by relying the patterns.
@@ -213,7 +213,15 @@
                     The model with the application of adversarial loss demonstrates robustness on unseen datasets compared to the model without it.
                     However, on the contrary, when training the implicit function, the predicted back-side image can differ from the actual back view in the training dataset, which can undermine confidence in explicit guidance.
                     Preventing mode collapse in GANs can ironically result in the implicit function losing confidence in the generated inputs, incurring to oversmoothing in the back-side.
+                    <br><br>
                   </p>
+                  <hr style="margin-top:0px">
+                <h5>Texture with Lower Resolution than PaMIR</h5>
+                In many implicit function-based methods, if there is no appropriate conditioning for the unseen parts, the implicit function tends to grey out those parts during minimizing the objective function.
+                Our approach significantly mitigates this drawback by embedding color information in the spatial domain.
+                However, During the blending process of aligned front-/back-side images, we observed the undesired decrease in resolution with the similar architecture to PaMIR.
+                We acknowledge that there is still room for improvement in this aspect and it appears necessary to introduce additional modules or methods to facilitate better blending.
+                <br><br>
               </p>
               <hr style="margin-top:0px">
           </div>
